@@ -5,9 +5,5 @@
   };
   outputs = { ... }: {
     om = import ./nix/modules/om.nix;
-    flakeModules = {
-      default = ./nix/modules/flake-module.nix;
-      nixpkgs = ./nix/modules/nixpkgs.nix;
-    };
   };
 }
