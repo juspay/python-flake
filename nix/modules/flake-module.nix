@@ -47,7 +47,7 @@ in
                   pkgs.python3;
             };
             overrides = lib.mkOption {
-              type = lib.types.functionTo (lib.types.functionTo (lib.types.attrsOf lib.types.package));
+              type = lib.types.functionTo (lib.types.functionTo (lib.types.attrs));
               default = final: prev: { };
               description = lib.mdDoc ''
                 A function of the form `final: prev: { ... }` to override Python packages.

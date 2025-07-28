@@ -13,13 +13,13 @@ let
   overlay' = workspace.mkEditablePyprojectOverlay { root = "$REPO_ROOT"; };
 
   pythonSet =
-    (pkgs.callPackage pyproject-nix.build.packages
+    ((pkgs.callPackage pyproject-nix.build.packages
       { inherit python; }).overrideScope
       (lib.composeManyExtensions [
         pyproject-build-systems.overlays.default
-        pyprojectOverrides
         overlay
-      ]);
+      ])).pythonPkgsHostHost.overrideScope
+      pyprojectOverrides;
   pythonSet' = pythonSet.overrideScope (lib.composeManyExtensions [
     overlay'
     (final: prev: {
