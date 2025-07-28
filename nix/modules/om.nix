@@ -7,6 +7,7 @@
     in
     {
       dev = { inherit overrideInputs; dir = "dev"; };
+      simple = { inherit overrideInputs; dir = "./examples/simple"; };
     };
   health.default = {
     nix-version.supported = ">=2.16.0";
