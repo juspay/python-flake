@@ -17,7 +17,7 @@
 
       flake.om.develop.default.readme = # md
         ''
-          🐍 Welcome to the Python Flake Project!
+          `Hint`: Run `just` to see what's available
         '';
       perSystem = { pkgs, config, ... }: {
         pre-commit = {
@@ -29,6 +29,9 @@
           # cf. https://community.flake.parts/haskell-flake#composing-devshells
           inputsFrom = [
             config.pre-commit.devShell
+          ];
+          packages = with pkgs;[
+            just
           ];
         };
       };
