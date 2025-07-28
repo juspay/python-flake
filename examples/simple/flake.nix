@@ -6,7 +6,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
 
-    python-flake.url = "path:./../../.";
+    # TODO: refactor this once the PR is merged
+    python-flake.url = "github:juspay/python-flake/pull/2/head";
   };
 
   outputs = inputs@{ flake-parts, ... }:
