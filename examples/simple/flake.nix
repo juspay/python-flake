@@ -1,5 +1,5 @@
 {
-  description = "Flake for Juspay-mcp python project.";
+  description = "Simple example flake for python-flake";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";

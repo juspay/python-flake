@@ -32,6 +32,7 @@ in
                 if config.python-project.pythonVersionFile then
                   let
                     pythonVersionFile = config.python-project.root + /.python-version;
+                    DEFAULT_PYTHON_MAJOR_VERSION = "3";
                     versionStr =
                       with builtins;
                       with lib;
@@ -39,7 +40,7 @@ in
                         raw = if pathExists pythonVersionFile then readFile pythonVersionFile else "";
                         m = match "([0-9]+)\\.([0-9]+).*" (removeSuffix "\n" raw); # ["3" "13"]
                       in
-                      if m != null && m != [ ] then concatStringsSep "" m else "3";
+                      if m != null && m != [ ] then concatStringsSep "" m else DEFAULT_PYTHON_MAJOR_VERSION;
                   in
                   pkgs."python${versionStr}"
                 else
