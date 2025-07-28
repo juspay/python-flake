@@ -140,14 +140,19 @@
         "uv2nix_hammer_overrides": "uv2nix_hammer_overrides"
       },
       "locked": {
-        "path": "./../../.",
-        "type": "path"
+        "lastModified": 1753688804,
+        "narHash": "sha256-DpfbSM0IydFHHfGXBJRwwSMvBKe8YwO0y/drc8EdSqE=",
+        "owner": "juspay",
+        "repo": "python-flake",
+        "rev": "9cc5ae3cba5bda775452c1373f5d6db1aee04c24",
+        "type": "github"
       },
       "original": {
-        "path": "./../../.",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "juspay",
+        "ref": "pull/2/head",
+        "repo": "python-flake",
+        "type": "github"
+      }
     },
     "root": {
       "inputs": {
