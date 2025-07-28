@@ -8,7 +8,13 @@ A simple flake module for Python development, based on [uv2nix](https://pyprojec
 
 #### Example Quick DevShell
 
+```
+uv init --no-readme
+uv lock
+```
+
 ```nix
+# This is for the content in flake.nix
 {
   description = "Flake to do python stuff ...... 🐍 ❄ ";
 
@@ -38,3 +44,6 @@ A simple flake module for Python development, based on [uv2nix](https://pyprojec
     };
 }
 ```
+
+# TODO:
+- [ ] [`python-nix-template`](https://github.com/juspay/python-nix-template) as a e.g instead of the code block in readme.
