@@ -15,6 +15,10 @@
         (inputs.git-hooks + /flake-module.nix)
       ];
 
+      flake.om.develop.default.readme = # md
+        ''
+          🐍 Welcome to the Python Flake Project!
+        '';
       perSystem = { pkgs, config, ... }: {
         pre-commit = {
           check.enable = true;
