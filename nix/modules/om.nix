@@ -2,7 +2,7 @@
   ci.default =
     let
       overrideInputs = {
-        python-flake = ./.;
+        python-flake = ../../.;
       };
     in
     {
