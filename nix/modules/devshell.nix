@@ -18,10 +18,11 @@ let
       (lib.composeManyExtensions [
         pyproject-build-systems.overlays.default
         overlay
-      ])).pythonPkgsHostHost.overrideScope
-      pyprojectOverrides;
+      ])).pythonPkgsHostHost.overrideScope pyprojectOverrides;
   pythonSet' = pythonSet.overrideScope (lib.composeManyExtensions [
     overlay'
+    # TODO: Expose to the user
+    # Use a better fileset filter here.
     (final: prev: {
       "${cfg.name}" = prev.${cfg.name}.overrideAttrs (old: {
         src = cfg.root;
@@ -29,34 +30,51 @@ let
     })
   ]);
 
-  venv = pythonSet'.mkVirtualEnv config.python-project.name workspace.deps.all;
 in
 {
-  packages = {
-    # default package with non editable virtual environment, `pyproject.toml` should have a # `[project.scripts]` section to expose commands
-    default = lib.mkDefault (pythonSet.mkVirtualEnv config.python-project.name workspace.deps.all);
-    venv = venv; # editable virtual environment as a package
-  };
-  devShells.uv2nix =
-    pkgs.mkShell {
-      name = "python-fake-devshell";
-      meta.description = "Python development environment created by uv2nix";
-      packages = [ pkgs.uv venv ];
-      env = {
-        UV_NO_SYNC = "1";
-        UV_PYTHON = "${lib.getExe' venv "python"}";
-        UV_PYTHON_DOWNLOADS = "never";
-      };
-      shellHook = # sh
-        ''
-          # Undo dependency propagation by nixpkgs.
-          unset PYTHONPATH
-
-          # Get repository root using git. This is expanded at runtime by the editable `.pth` machinery.
-          export REPO_ROOT=$(git rev-parse --show-toplevel)
-
-          echo "Python version: $(python --version)"
-          echo ""
-        '';
+  options.python-project = {
+    pythonSet = lib.mkOption {
+      type = lib.types.attrs;
+      default = pythonSet;
+      description = "The Python package set to use for the project.";
     };
+    pythonSet' = lib.mkOption {
+      type = lib.types.attrs;
+      default = pythonSet';
+      description = "The editable Python package set to use for the project.";
+    };
+    venv = lib.mkOption {
+      type = lib.types.package;
+      default = with cfg; pythonSet.mkVirtualEnv name workspace.deps.all;
+      description = "The editable virtual environment for the project.";
+    };
+  };
+  config = {
+    packages = {
+      # default package with non editable virtual environment, `pyproject.toml` should have a # `[project.scripts]` section to expose commands
+      default = lib.mkDefault (pythonSet.mkVirtualEnv cfg.name workspace.deps.all);
+    };
+    devShells.uv2nix =
+      pkgs.mkShell {
+        name = "python-fake-devshell";
+        meta.description = "Python development environment created by uv2nix";
+        packages = [ pkgs.uv cfg.venv ];
+        env = {
+          UV_NO_SYNC = "1";
+          UV_PYTHON = "${lib.getExe' cfg.venv "python"}";
+          UV_PYTHON_DOWNLOADS = "never";
+        };
+        shellHook = # sh
+          ''
+            # Undo dependency propagation by nixpkgs.
+            unset PYTHONPATH
+
+            # Get repository root using git. This is expanded at runtime by the editable `.pth` machinery.
+            export REPO_ROOT=$(git rev-parse --show-toplevel)
+
+            echo "Python version: $(python --version)"
+            echo ""
+          '';
+      };
+  };
 }
