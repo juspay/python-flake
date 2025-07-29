@@ -1,0 +1,11 @@
+[project]
+name = "simple"
+version = "0.1.0"
+description = "Simple Python project to test `python-flake`"
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=14.1.0",
+]
+
+[project.scripts]
+simple = "main:main"

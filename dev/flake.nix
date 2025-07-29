@@ -15,6 +15,10 @@
         (inputs.git-hooks + /flake-module.nix)
       ];
 
+      flake.om.develop.default.readme = # md
+        ''
+          `Hint`: Run `just` to see what's available
+        '';
       perSystem = { pkgs, config, ... }: {
         pre-commit = {
           check.enable = true;
@@ -25,6 +29,9 @@
           # cf. https://community.flake.parts/haskell-flake#composing-devshells
           inputsFrom = [
             config.pre-commit.devShell
+          ];
+          packages = with pkgs;[
+            just
           ];
         };
       };

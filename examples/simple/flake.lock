@@ -1,6 +1,55 @@
 {
   "nodes": {
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1753121425,
+        "narHash": "sha256-TVcTNvOeWWk1DXljFxVRp+E0tzG1LhrVjOGGoMHuXio=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "644e0fc48951a860279da645ba77fe4a6e814c5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1753429684,
+        "narHash": "sha256-9h7+4/53cSfQ/uA3pSvCaBepmZaz/dLlLVJnbQ+SJjk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7fd36ee82c0275fb545775cc5e4d30542899511d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1751159883,
+        "narHash": "sha256-urW/Ylk9FIfvXfliA1ywh75yszAbiTEVgpPeinFyVZo=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "14a40a1d7fb9afa4739275ac642ed7301a9ba1ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1753429684,
         "narHash": "sha256-9h7+4/53cSfQ/uA3pSvCaBepmZaz/dLlLVJnbQ+SJjk=",
@@ -16,7 +65,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1725103162,
         "narHash": "sha256-Ym04C5+qovuQDYL/rKWSR+WESseQBbNAe5DsXNx5trY=",
@@ -35,12 +84,15 @@
     "pyproject-build-systems": {
       "inputs": {
         "nixpkgs": [
+          "python-flake",
           "nixpkgs"
         ],
         "pyproject-nix": [
+          "python-flake",
           "pyproject-nix"
         ],
         "uv2nix": [
+          "python-flake",
           "uv2nix"
         ]
       },
@@ -61,6 +113,7 @@
     "pyproject-nix": {
       "inputs": {
         "nixpkgs": [
+          "python-flake",
           "nixpkgs"
         ]
       },
@@ -78,13 +131,35 @@
         "type": "github"
       }
     },
-    "root": {
+    "python-flake": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
         "uv2nix": "uv2nix",
         "uv2nix_hammer_overrides": "uv2nix_hammer_overrides"
+      },
+      "locked": {
+        "lastModified": 1753688804,
+        "narHash": "sha256-DpfbSM0IydFHHfGXBJRwwSMvBKe8YwO0y/drc8EdSqE=",
+        "owner": "juspay",
+        "repo": "python-flake",
+        "rev": "9cc5ae3cba5bda775452c1373f5d6db1aee04c24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juspay",
+        "ref": "pull/2/head",
+        "repo": "python-flake",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": "nixpkgs",
+        "python-flake": "python-flake",
+        "systems": "systems_2"
       }
     },
     "systems": {
@@ -101,9 +176,24 @@
         "type": "indirect"
       }
     },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1725271838,
@@ -122,9 +212,11 @@
     "uv2nix": {
       "inputs": {
         "nixpkgs": [
+          "python-flake",
           "nixpkgs"
         ],
         "pyproject-nix": [
+          "python-flake",
           "pyproject-nix"
         ]
       },
@@ -145,6 +237,7 @@
     "uv2nix_hammer_overrides": {
       "inputs": {
         "nixpkgs": [
+          "python-flake",
           "nixpkgs"
         ],
         "systems": "systems",
