@@ -58,7 +58,7 @@ in
       pkgs.mkShell {
         name = "python-fake-devshell";
         meta.description = "Python development environment created by uv2nix";
-        packages = [ pkgs.uv cfg.venv ];
+        packages = [ pkgs.uv pkgs.just cfg.venv ];
         env = {
           UV_NO_SYNC = "1";
           UV_PYTHON = "${lib.getExe' cfg.venv "python"}";
